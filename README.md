@@ -2,11 +2,18 @@
 Images selection captcha in JAVA 
 
 ## To compile
+Linux : 
 ```
-javac src/fr/upem/captcha/*.java -d classes 
+find . -name "*.java"  -print | xargs javac -d classes 
+```
+
+Windows:
+```
+dir /s /B *.java > sources.txt
+javac @sources.txt -d classes 
 ```
 
 ## To execute
 ```
-java -cp classes fr.umlv.captcha.[path.name]
+java -cp classes fr.upem.captcha.ui.MainUi -d classes
 ```
