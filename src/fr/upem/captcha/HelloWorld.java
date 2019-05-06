@@ -1,10 +1,6 @@
 package fr.upem.captcha;
 
 /**
- * @desc Simple program that says "Hello World"
- * @author Nicolas SENECAL
- */
-/**
  * @authors : Olivier MEYER - Nicolas SENECAL
  * @date : 2019/05/06
  * @file : HelloWorld.java
