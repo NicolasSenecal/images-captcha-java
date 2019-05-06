@@ -1,11 +1,12 @@
-#Images Captcha in Java
+# Images Captcha in Java
 Images selection captcha in JAVA 
 
-##To compile
+## To compile
 ```
 javac src/fr/upem/captcha/*.java -d classes 
 ```
-##To execute
+
+## To execute
 ```
 java -cp classes fr.umlv.captcha.[path.name]
 ```
