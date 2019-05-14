@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class Category {
+public class Category {
 
   private ArrayList<URL> currentImages;
   private ArrayList<Category> categories;
@@ -24,34 +24,53 @@ public abstract class Category {
   /**
    * Constructor
    */
-  protected Category() {
+  public Category() {
     this.currentImages = new ArrayList<URL>();
     //this.setCurrentImages();
   }
+  
+  //Getters / Setters
+  public ArrayList<URL> getCurrentImages() {
+    return currentImages;
+  }
 
+  
   /**
    * Get the current directory path
    *
-   * @return Return the relatif path of the current directory
+   * @return Return the relative path of the current directory
    */
-  private Path getCurrentClassPath() {
+  private Path getCurrentPath() {
     String packageName = "../src/" + this.getClass().getPackage().getName();
     String currentPath = packageName.replace('.', '/');
-    return Paths.get(currentPath);
+    // return Paths.get(currentPath);
+    return Paths.get("./");
   }
 
   /**
-   * Set currentImages with all images in the actual path
+   * Populate "currentImages" array with all the image files present in the current folder
    */
-  private void setCurrentImages() {
-    List<String> images = null;
-    Path classPath = this.getCurrentClassPath();
+  public void populateCurrentImages() {
+    List<String> images = new ArrayList<String>();
+    Path currentPath = this.getCurrentPath();
+    currentImages.add(this.getClass().getResource("./riz/1.jpg"));
     try {
-      images = Files.walk(classPath, 1)
+      //System.out.println( classPath);
+      //System.out.println(Files.walk(currentPath, 1));
+  
+  //  images = Files.walk(classPath, 1)
+  //          .map(Path::getFileName)
+  //          .map(Path::toString)
+  //          .filter(n -> n.contains(".jpg") || n.contains(".jpeg") || n.contains(".png"))
+  //          .collect(Collectors.toList());
+
+      images = Files.walk(currentPath, 1)
               .map(Path::getFileName)
               .map(Path::toString)
-              .filter(n -> n.contains(".jpg") || n.contains(".jpeg") || n.contains(".png"))
               .collect(Collectors.toList());
+
+      System.out.println(images);
+      
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -60,4 +79,13 @@ public abstract class Category {
       currentImages.add(this.getClass().getResource(image));
     }
   }
+
+
+  @Override
+  public String toString() {
+    return "Category [currentImages=" + currentImages.toString() + ", categories=" + categories + "]";
+  }
+  
+  
+  
 }
