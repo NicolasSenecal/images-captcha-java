@@ -4,29 +4,16 @@ Images selection captcha in JAVA
 ## To compile
 Linux : 
 ```
-find . -name "*.java"  -print | xargs javac -d bin 
+find . -name "*.java"  -print | xargs javac -d classes 
 ```
 
 Windows:
 ```
-for /f %i in ('forfiles /s /m *.java /c "cmd /c echo @relpath"') do @echo %~i >> sources.txt
+dir /s /B *.java > sources.txt
 javac @sources.txt -d bin 
-```
-
-## To copy resources
-You have to copy the resources from `/src` into `/bin` that the program can access to images :
-
-Linux : 
-```
-rsync -avz --exclude '*.java' ./src/ ./bin/
-```
-
-Windows:
-```
-xcopy .\src\* .\bin\ /S /I /C /Exclude:sources.txt
 ```
 
 ## To execute
 ```
-java -cp bin fr.upem.captcha.Main
+java -cp classes fr.upem.captcha.ui.MainUi -d bin
 ```
