@@ -6,6 +6,8 @@
  */
 package fr.upem.captcha.images;
 
+import fr.upem.captcha.images.CategoryTools;
+
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -159,21 +161,58 @@ public abstract class Category {
    */
   abstract public String getName();
 
+  /**
+   * Override toString method for display category informations
+   *
+   * @return the string description of the category
+   */
   @Override
   public String toString() {
+    return this.toString(0);
+  }
+
+  /**
+   * ToString method for display category informations with tabulation for
+   * clarity
+   *
+   * @param nbTab tab number before display category informations
+   * @return the string description of the category
+   */
+  public String toString(int nbTab) {
     StringBuilder str = new StringBuilder();
-    str.append("-- ");
+    str.append("\n");
+
+    // Category name and description 
+    str.append(CategoryTools.repeat("  ", nbTab));
+    str.append("=== ");
     str.append(this.getClass().getSimpleName());
     str.append(" - ");
     str.append(this.getName());
-    str.append("\n  -- Images numbers = ");
-    str.append(currentImages.size());
-    str.append("\n  -- sub categories numbers = ");
-    str.append(categories.size());
-    str.append("\n  -- sub categories = \n");
-    str.append(categories.toString());
+    str.append(" ===");
+
+    // Category current images
     str.append("\n");
+    str.append(CategoryTools.repeat("  ", nbTab));
+    str.append("  Images numbers = ");
+    str.append(currentImages.size());
+
+    // Category sub cattegories
+    str.append("\n");
+    str.append(CategoryTools.repeat("  ", nbTab));
+    str.append("  sub categories numbers = ");
+    str.append(categories.size());
+    str.append("\n");
+    if (categories.size() > 0) {
+      str.append(CategoryTools.repeat("  ", nbTab));
+      str.append("  sub categories {");
+      for (Category category : categories) {
+        str.append("\n");
+        str.append(category.toString(nbTab + 2));
+      }
+      str.append("\n");
+      str.append(CategoryTools.repeat("  ", nbTab));
+      str.append("  }");
+    }
     return str.toString();
   }
-
 }

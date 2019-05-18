@@ -13,12 +13,12 @@ public class CategoryTools {
 
   /**
    * Repeat a string
-   * 
+   *
    * @param count Number of the repetition
    * @param with String to repeat
    * @return The repeated string
    */
-  public static String repeat(int count, String with) {
+  public static String repeat(String with, int count) {
     return new String(new char[count]).replace("\0", with);
   }
 }
