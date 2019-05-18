@@ -152,6 +152,32 @@ public abstract class Category {
   }
 
   /**
+   * Get a random sub category by depth.If there is no subcategory relative to
+   * this depth, the deepest category would be returned
+   *
+   * @param depth depth of category to get
+   * @return a sub category relative to the depth
+   */
+  public Category getRandomCategory(int depth) {
+    if (this.categories.isEmpty() || depth <= 0) {
+      return this;
+    }
+    ArrayList<Category> allCategories = new ArrayList<Category>(this.categories);
+    Collections.shuffle(allCategories); // change the order of categories randomly
+    return allCategories.get(0).getRandomCategory(depth - 1);
+  }
+
+  /**
+   * Get a random subcategory, only takes into account direct children If there
+   * is no subcategory, the current category is returned
+   *
+   * @return a sub category of the current category
+   */
+  public Category getRandomCategory() {
+    return this.getRandomCategory(1);
+  }
+
+  /**
    * Get the name of the current class file
    *
    * @return Return the current class file
