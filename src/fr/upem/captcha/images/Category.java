@@ -60,18 +60,43 @@ public abstract class Category {
   /**
    * Get all images of the category
    *
-   * @return Return the URL list of all images of the category, child included
+   * @return the URL list of all images of the category, child included
    */
   public ArrayList<URL> getImages() {
-    ArrayList<URL> images = new ArrayList<URL>();
+    return this.getImages(new ArrayList<Category>());
+  }
 
-    // add current images
-    images.addAll(this.getCurrentImages());
+  /**
+   * Get all images of the category, ignoring a sub category instance
+   *
+   * @param excluded category instance to exclude
+   * @return the URL list of all images of the category, child included
+   */
+  public ArrayList<URL> getImages(Category excluded) {
+    ArrayList<Category> excludedList = new ArrayList<Category>();
+    excludedList.add(excluded);
+    return this.getImages(excludedList);
+  }
+
+  /**
+   * Get all images of the category, ignoring a sub category instance
+   *
+   * @param count number of images to get
+   * @param excludedList list of categories instance to exclude
+   * @return a list of random images
+   */
+  public ArrayList<URL> getImages(ArrayList<Category> excludedList) {
+    ArrayList<URL> images = new ArrayList<URL>();
 
     // add sub categories images
     for (Category category : categories) {
-      images.addAll(category.getImages());
+      if (!excludedList.contains(category)) {
+        images.addAll(category.getImages());
+      }
     }
+
+    // add current images
+    images.addAll(this.getCurrentImages());
 
     return images;
   }
@@ -184,6 +209,31 @@ public abstract class Category {
    * @return the name description of the category
    */
   abstract public String getName();
+
+  /**
+   * Override equals function
+   */
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    Category other = (Category) obj;
+    if (getName() == null) {
+      if (other.getName() != null) {
+        return false;
+      }
+    } else if (!getName().equals(other.getName())) {
+      return false;
+    }
+    return true;
+  }
 
   /**
    * Override toString method for display category informations
