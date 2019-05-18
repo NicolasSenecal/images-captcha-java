@@ -9,11 +9,22 @@ package fr.upem.captcha.images.riz;
 import fr.upem.captcha.images.AllCategory;
 
 public class Riz extends AllCategory {
+
   /**
    * Constructor
    */
   public Riz() {
     super();
+  }
+
+  /**
+   * Get the name description of the category
+   *
+   * @return the name description of the category
+   */
+  @Override
+  public String getName() {
+    return "du Riz";
   }
 
 }

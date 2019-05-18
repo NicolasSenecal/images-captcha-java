@@ -17,4 +17,14 @@ public class Natures extends Coquillettes {
     super();
   }
 
+  /**
+   * Get the name description of the category
+   *
+   * @return the name description of the category
+   */
+  @Override
+  public String getName() {
+    return "des Coquillettes Nature";
+  }
+
 }

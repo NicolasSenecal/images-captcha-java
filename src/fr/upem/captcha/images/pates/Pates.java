@@ -9,11 +9,22 @@ package fr.upem.captcha.images.pates;
 import fr.upem.captcha.images.AllCategory;
 
 public class Pates extends AllCategory {
+
   /**
    * Constructor
    */
   public Pates() {
     super();
+  }
+
+  /**
+   * Get the name description of the category
+   *
+   * @return the name description of the category
+   */
+  @Override
+  public String getName() {
+    return "des Pates";
   }
 
 }

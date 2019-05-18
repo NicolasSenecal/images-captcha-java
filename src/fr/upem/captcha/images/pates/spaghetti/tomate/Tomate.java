@@ -17,4 +17,13 @@ public class Tomate extends Spaghetti {
     super();
   }
 
+  /**
+   * Get the name description of the category
+   *
+   * @return the name description of the category
+   */
+  @Override
+  public String getName() {
+    return "des Spaghetti à la Tomate";
+  }
 }

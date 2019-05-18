@@ -17,4 +17,14 @@ public class Patates extends AllCategory {
     super();
   }
 
+  /**
+   * Get the name description of the category
+   *
+   * @return the name description of the category
+   */
+  @Override
+  public String getName() {
+    return "des Patates";
+  }
+
 }

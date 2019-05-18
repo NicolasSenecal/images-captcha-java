@@ -31,8 +31,8 @@ public abstract class Category {
   private ArrayList<Category> categories;
 
   /**
-   * Constructor, populate all subcategories and current images
-   * Catch and show IOException if there are errors
+   * Constructor, populate all subcategories and current images Catch and show
+   * IOException if there are errors
    */
   protected Category() {
     this.currentImages = new ArrayList<URL>();
@@ -152,11 +152,20 @@ public abstract class Category {
     }
   }
 
+  /**
+   * Get the name description of the category
+   *
+   * @return the name description of the category
+   */
+  abstract public String getName();
+
   @Override
   public String toString() {
     StringBuilder str = new StringBuilder();
     str.append("-- ");
     str.append(this.getClass().getSimpleName());
+    str.append(" - ");
+    str.append(this.getName());
     str.append("\n  -- Images numbers = ");
     str.append(currentImages.size());
     str.append("\n  -- sub categories numbers = ");

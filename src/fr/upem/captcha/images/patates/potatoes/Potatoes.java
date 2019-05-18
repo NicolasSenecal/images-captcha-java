@@ -9,6 +9,7 @@ package fr.upem.captcha.images.patates.potatoes;
 import fr.upem.captcha.images.patates.Patates;
 
 public class Potatoes extends Patates {
+
   /**
    * Constructor
    */
@@ -16,4 +17,13 @@ public class Potatoes extends Patates {
     super();
   }
 
+  /**
+   * Get the name description of the category
+   *
+   * @return the name description of the category
+   */
+  @Override
+  public String getName() {
+    return "des Potatoes";
+  }
 }
