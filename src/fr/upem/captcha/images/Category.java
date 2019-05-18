@@ -47,9 +47,33 @@ public abstract class Category {
     }
   }
 
-  //Getters / Setters
+  /**
+   * Get currentImages copy
+   *
+   * @return Return the URL list of all images present directly in the current
+   * folder
+   */
   public ArrayList<URL> getCurrentImages() {
-    return currentImages;
+    return (ArrayList<URL>) currentImages.clone();
+  }
+
+  /**
+   * Get all images of the category
+   *
+   * @return Return the URL list of all images of the category, child included
+   */
+  public ArrayList<URL> getImages() {
+    ArrayList<URL> images = new ArrayList<URL>();
+
+    // add current images
+    images.addAll(this.getCurrentImages());
+
+    // add sub categories images
+    for (Category category : categories) {
+      images.addAll(category.getImages());
+    }
+
+    return images;
   }
 
   /**
