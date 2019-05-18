@@ -178,6 +178,16 @@ public abstract class Category {
   }
 
   /**
+   * Test if an image is present in the list, including children
+   *
+   * @param image URL of the image to test
+   * @return true if it is, false otherwise
+   */
+  public boolean hasImage(URL image) {
+    return this.getImages().contains(image);
+  }
+
+  /**
    * Get the name of the current class file
    *
    * @return Return the current class file
