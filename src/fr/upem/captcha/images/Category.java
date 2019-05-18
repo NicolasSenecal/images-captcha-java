@@ -21,11 +21,18 @@ import java.util.stream.Collectors;
 
 public abstract class Category {
 
+  /**
+   * URL list of all images present directly in the current folder
+   */
   private ArrayList<URL> currentImages;
+  /**
+   * List of instances of each subcategories
+   */
   private ArrayList<Category> categories;
 
   /**
-   * Constructor
+   * Constructor, populate all subcategories and current images
+   * Catch and show IOException if there are errors
    */
   protected Category() {
     this.currentImages = new ArrayList<URL>();
