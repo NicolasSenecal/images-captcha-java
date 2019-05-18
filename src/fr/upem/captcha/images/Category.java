@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class Category {
+public abstract class Category {
 
   private ArrayList<URL> currentImages;
   private ArrayList<Category> categories;
@@ -27,7 +27,7 @@ public class Category {
   /**
    * Constructor
    */
-  public Category() {
+  protected Category() {
     this.currentImages = new ArrayList<URL>();
     this.categories = new ArrayList<Category>();
     try {
@@ -48,7 +48,7 @@ public class Category {
    *
    * @return Return the absolute path of the current directory
    */
-  public Path getCurrentPath() {
+  private Path getCurrentPath() {
     String className = this.getClassFileName();
     URL url = this.getClass().getResource(className); // URL of the actual class file
     File file = new File(url.getPath()); // Actual class file
@@ -60,7 +60,7 @@ public class Category {
    *
    * @return Return the current class file
    */
-  public String getClassFileName() {
+  private String getClassFileName() {
     return this.getClass().getSimpleName() + ".class";
   }
 
@@ -68,7 +68,7 @@ public class Category {
    * Populate "currentImages" array with all the image files present in the
    * current folder
    */
-  public void populateCurrentImages() throws IOException {
+  private void populateCurrentImages() throws IOException {
     List<String> images = new ArrayList<String>();
     Path currentPath = this.getCurrentPath();
 
@@ -104,7 +104,7 @@ public class Category {
    * Populate "categories" array with all the Categories in sub folders
    *
    */
-  public void populateCategories() throws IOException {
+  private void populateCategories() throws IOException {
     List<String> subFolders = this.getSubFolders();
     Path currentPath = this.getCurrentPath();
 
