@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import java.util.Collections;
 
 public abstract class Category {
 
@@ -99,6 +100,43 @@ public abstract class Category {
     images.addAll(this.getCurrentImages());
 
     return images;
+  }
+
+  /**
+   * Get a list of random images, sub categories included
+   *
+   * @param count number of images to get
+   * @return a list of random images
+   */
+  public ArrayList<URL> getRandomImages(int count) {
+    return this.getRandomImages(count, new ArrayList<Category>());
+  }
+
+  /**
+   * Get a list of random images, ignoring a category instance
+   *
+   * @param count number of images to get
+   * @param excluded category instance to exclude
+   * @return a list of random images
+   */
+  public ArrayList<URL> getRandomImages(int count, Category excluded) {
+    ArrayList<Category> excludedList = new ArrayList<Category>();
+    excludedList.add(excluded);
+    return this.getRandomImages(count, excludedList);
+  }
+
+  /**
+   * Get a list of random images, ignoring some categories instances
+   *
+   * @param count number of images to get
+   * @param excludedList list of categories instance to exclude
+   * @return a list of random images
+   */
+  public ArrayList<URL> getRandomImages(int count, ArrayList<Category> excludedList) {
+    ArrayList<URL> allImages = this.getImages(excludedList);
+    Collections.shuffle(allImages); // change the order of images randomly
+    int min = Math.min(count, allImages.size()); // if there are not enough images
+    return new ArrayList<URL>(allImages.subList(0, min));
   }
 
   /**
@@ -233,6 +271,14 @@ public abstract class Category {
       return false;
     }
     return true;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 58;
+    int result = 22;
+    result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+    return result;
   }
 
   /**
