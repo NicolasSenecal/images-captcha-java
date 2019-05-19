@@ -24,7 +24,7 @@ public class AllCategory extends Category {
    */
   @Override
   public String getName() {
-    return "All unimaginable categories";
+    return "tous ces bons plats";
   }
 
 }

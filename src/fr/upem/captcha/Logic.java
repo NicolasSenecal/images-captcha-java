@@ -17,7 +17,7 @@ public class Logic {
 	private static int trueImagesNb = 4; // minimum numbers of images to find
 	
   // difficulty
-	private static int motherDepth = 1; // depth of all images to be displayed
+	private static int motherDepth = 0; // depth of all images to be displayed
 	private static int trueCategoryDepth = 3; // depth of the true images
 
 	private static Category motherCategory = null;
@@ -38,9 +38,6 @@ public class Logic {
       motherCategory = allCategory.getRandomCategory(motherDepth);
       trueCategory = motherCategory.getRandomCategory(trueCategoryDepth - motherDepth);
     } while (motherCategory == trueCategory);
-
-    System.out.print("\n === Vous devez trouvez " + trueCategory.getName());
-    System.out.println(" parmis " + motherCategory.getName() + " ===\n");
 	}
 
   /**
@@ -54,14 +51,13 @@ public class Logic {
     // we take into account the case where trueImages.size() is lower than the one expected
     // and we excluded the trueCategory
 
-		System.out.println("là");
-		System.out.println(trueImages);
     images.addAll(trueImages);
     images.addAll(falseImages);
     Collections.shuffle(images); // random order
     // System.out.println("images to display = " + images + "\n");
     
     // Verification 
+    /*
     for (URL image : images) {
       if (trueCategory.hasImage(image)) {
         System.out.println("=> OK :\n   " + image);
@@ -69,6 +65,7 @@ public class Logic {
         System.out.println("=> PAS OK :\n   " + image);
       }
     }
+    */
 	}
 
   /**

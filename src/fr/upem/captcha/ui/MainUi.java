@@ -45,7 +45,7 @@ public class MainUi {
 		allImages = Logic.getImages();
 
     for (URL url : allImages) {
-    	System.out.println(url.getFile());
+//    	System.out.println(url.getFile());
     	frame.add(createLabelImage(url));
     }
 			
