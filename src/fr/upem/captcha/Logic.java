@@ -80,6 +80,7 @@ public class Logic {
    * initiate the categories and images
    */	
   public static void init() {
+  	trueImagesNb = (int)(Math.random() * 3 + 2);
   	trueImages.clear();
   	falseImages.clear();
   	images.clear();

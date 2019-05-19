@@ -1,7 +1,7 @@
 package fr.upem.captcha.ui;
 
 import fr.upem.captcha.Logic;
-import fr.upem.captcha.images.Category;
+//import fr.upem.captcha.images.Category;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -38,6 +38,8 @@ public class MainUi {
 	private static void init() throws IOException {
 		// init display
 		if (frame != null) frame.dispose();
+		allImages.clear();
+		selectedImages.clear();
 		frame = new JFrame("Capcha"); // Création de la fenêtre principale
 		GridLayout layout = createLayout();  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
 		JButton okButton = createOkButton();
@@ -74,20 +76,7 @@ public class MainUi {
 					
 					@Override
 					public void run() { // c'est un runnable
-						if (Logic.checkImages(selectedImages)) {
-							System.out.println("c'est validey");
-							Logic.resetDifficulty();
-						} else {
-							System.out.println("c'est pabon");
-							Logic.increaseDifficulty();
-						}
-						try {
-							TimeUnit.SECONDS.sleep(1);
-							init();
-						} catch (Exception e) {
-							System.err.println("error while reloading");
-							e.printStackTrace();
-						}
+						validateSelection();
 					}
 				});
 			}
@@ -147,5 +136,22 @@ public class MainUi {
 		});
 		
 		return label;
+	}
+	
+	public static void validateSelection () {
+		if (Logic.checkImages(selectedImages)) {
+			System.out.println("c'est validey");
+			Logic.resetDifficulty();
+		} else {
+			System.out.println("c'est pabon");
+			Logic.increaseDifficulty();
+		}
+		try {
+			TimeUnit.SECONDS.sleep(1);
+			init();
+		} catch (Exception e) {
+			System.err.println("error while reloading");
+			e.printStackTrace();
+		}
 	}
 }
