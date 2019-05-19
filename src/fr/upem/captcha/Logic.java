@@ -18,7 +18,7 @@ public class Logic {
 	
   // difficulty
 	private static int motherDepth = 0; // depth of all images to be displayed
-	private static int trueCategoryDepth = 3; // depth of the true images
+	private static int trueCategoryDepth = 1; // depth of the true images
 
 	private static Category motherCategory = null;
 	private static Category trueCategory = null;
@@ -80,6 +80,9 @@ public class Logic {
    * initiate the categories and images
    */	
   public static void init() {
+  	trueImages.clear();
+  	falseImages.clear();
+  	images.clear();
   	setRandomCategories();
   	setRandomImages();    
   }
@@ -104,6 +107,22 @@ public class Logic {
       }
   	}
   	return true;
+  }
+
+  /**
+   * increase the difficulty of the image identification
+   */
+  public static void increaseDifficulty() {
+  	motherDepth++;
+  	trueCategoryDepth++;
+  }
+
+  /**
+   * reset the difficulty of the image identification
+   */
+  public static void resetDifficulty() {
+  	motherDepth = 0;
+  	trueCategoryDepth = 1;
   }
 
 }

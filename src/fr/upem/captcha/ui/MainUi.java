@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
@@ -28,10 +29,16 @@ public class MainUi {
 
 	private static ArrayList<URL> allImages = new ArrayList<URL>();
 	private static ArrayList<URL> selectedImages = new ArrayList<URL>();
-
+	private static JFrame frame; 
+	
 	public static void main(String[] args) throws IOException {
+		init();
+	}
+	
+	private static void init() throws IOException {
 		// init display
-		JFrame frame = new JFrame("Capcha"); // Création de la fenêtre principale
+		if (frame != null) frame.dispose();
+		frame = new JFrame("Capcha"); // Création de la fenêtre principale
 		GridLayout layout = createLayout();  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
 		JButton okButton = createOkButton();
 		
@@ -53,7 +60,7 @@ public class MainUi {
 		frame.add(okButton);
 		frame.setVisible(true);
 	}
-		
+	
 	private static GridLayout createLayout(){
 		return new GridLayout(4,3);
 	}
@@ -67,10 +74,20 @@ public class MainUi {
 					
 					@Override
 					public void run() { // c'est un runnable
-						if (Logic.checkImages(selectedImages))
+						if (Logic.checkImages(selectedImages)) {
 							System.out.println("c'est validey");
-						else 
+							Logic.resetDifficulty();
+						} else {
 							System.out.println("c'est pabon");
+							Logic.increaseDifficulty();
+						}
+						try {
+							TimeUnit.SECONDS.sleep(1);
+							init();
+						} catch (Exception e) {
+							System.err.println("error while reloading");
+							e.printStackTrace();
+						}
 					}
 				});
 			}
