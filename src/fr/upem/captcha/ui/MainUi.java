@@ -67,9 +67,9 @@ public class MainUi {
 					
 					@Override
 					public void run() { // c'est un runnable
-//						if (Logic.checkImages(selectedImages))
+						if (Logic.checkImages(selectedImages))
 							System.out.println("c'est validey");
-//						else 
+						else 
 							System.out.println("c'est pabon");
 					}
 				});

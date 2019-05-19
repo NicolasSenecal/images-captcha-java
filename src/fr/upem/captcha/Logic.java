@@ -22,6 +22,9 @@ public class Logic {
 
 	private static Category motherCategory = null;
 	private static Category trueCategory = null;
+
+	private static ArrayList<URL> trueImages = new ArrayList<URL>();
+  private static ArrayList<URL> falseImages = new ArrayList<URL>();
 	private static ArrayList<URL> images = new ArrayList<URL>(); // Images to display
 
   // SETTERS - GETTERS
@@ -45,12 +48,14 @@ public class Logic {
    */
 	public static void setRandomImages () {
     // Images
-    ArrayList<URL> trueImages = trueCategory.getRandomImages(trueImagesNb);
-    ArrayList<URL> falseImages = motherCategory.
-            getRandomImages(imagesNb - trueImages.size(), trueCategory);
+		trueImages = trueCategory.getRandomImages(trueImagesNb);
+		falseImages = motherCategory
+				.getRandomImages(imagesNb - trueImages.size(), trueCategory);
     // we take into account the case where trueImages.size() is lower than the one expected
     // and we excluded the trueCategory
 
+		System.out.println("là");
+		System.out.println(trueImages);
     images.addAll(trueImages);
     images.addAll(falseImages);
     Collections.shuffle(images); // random order
@@ -65,7 +70,6 @@ public class Logic {
       }
     }
 	}
-
 
   /**
    * get all the images
@@ -90,6 +94,19 @@ public class Logic {
     return ("Vous devez trouvez\n" 
     + trueCategory.getName() + " parmis\n" 
     + motherCategory.getName());
+  }
+
+  /**
+   * compare the given image list with the true category images
+   */
+  public static Boolean checkImages(ArrayList<URL> selected) {
+  	if (selected.size() != trueImages.size()) return false;
+  	for (URL tmp : selected) {
+      if (!trueImages.contains(tmp)) {
+          return false;
+      }
+  	}
+  	return true;
   }
 
 }
