@@ -1,5 +1,8 @@
 package fr.upem.captcha.ui;
 
+import fr.upem.captcha.Logic;
+import fr.upem.captcha.images.Category;
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -22,45 +25,35 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 public class MainUi {
-	
+
+	private static ArrayList<URL> allImages = new ArrayList<URL>();
 	private static ArrayList<URL> selectedImages = new ArrayList<URL>();
-	
+
 	public static void main(String[] args) throws IOException {
+		// init display
 		JFrame frame = new JFrame("Capcha"); // Création de la fenêtre principale
-		
 		GridLayout layout = createLayout();  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
+		JButton okButton = createOkButton();
 		
 		frame.setLayout(layout);  // affection du layout dans la fenêtre.
 		frame.setSize(1024, 768); // définition de la taille
 		frame.setResizable(false);  // On définit la fenêtre comme non redimentionnable
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenêtre on quitte le programme. 
 		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenêtre on quitte le programme.
-		 
+		Logic.init();
 		
-		JButton okButton = createOkButton();
+		allImages = Logic.getImages();
 
-		
-		frame.add(createLabelImage("centre ville.jpg")); //ajouter des composants à la fenêtre
-		frame.add(createLabelImage("le havre.jpg"));
-		frame.add(createLabelImage("panneau 70.jpg"));
-		frame.add(createLabelImage("panneaubleu-carre.jpeg"));
-		frame.add(createLabelImage("parking.jpg"));
-		frame.add(createLabelImage("route panneau.jpg"));
-		frame.add(createLabelImage("tour eiffel.jpg"));
-		frame.add(createLabelImage("ville espace verts.jpg"));
-		frame.add(createLabelImage("voie pieton.jpg"));
-		
-		
-		
-		frame.add(new JTextArea("Cliquez n'importe où ... juste pour tester l'interface !"));
-		
-		
+    for (URL url : allImages) {
+    	System.out.println(url.getFile());
+    	frame.add(createLabelImage(url));
+    }
+			
+		frame.add(new JTextArea(Logic.getMessage()));
 		frame.add(okButton);
-		
 		frame.setVisible(true);
 	}
-	
-	
+		
 	private static GridLayout createLayout(){
 		return new GridLayout(4,3);
 	}
@@ -74,19 +67,17 @@ public class MainUi {
 					
 					@Override
 					public void run() { // c'est un runnable
-						System.out.println("J'ai cliqué sur Ok");
+//						if (Logic.checkImages(selectedImages))
+							System.out.println("c'est validey");
+//						else 
+							System.out.println("c'est pabon");
 					}
 				});
 			}
 		});
 	}
 	
-	private static JLabel createLabelImage(String imageLocation) throws IOException{
-		
-		final URL url = MainUi.class.getResource(imageLocation); //Aller chercher les images !! IMPORTANT 
-		
-		System.out.println(url); 
-		
+	private static JLabel createLabelImage(URL url) throws IOException {
 		BufferedImage img = ImageIO.read(url); //lire l'image
 		Image sImage = img.getScaledInstance(1024/3,768/4, Image.SCALE_SMOOTH); //redimentionner l'image
 		
