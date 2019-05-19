@@ -93,7 +93,7 @@ public class Logic {
    */
   public static String getMessage() {
     return ("Vous devez trouvez\n" 
-    + trueCategory.getName() + " parmis\n" 
+    + trueCategory.getName() + " parmi\n" 
     + motherCategory.getName());
   }
 
