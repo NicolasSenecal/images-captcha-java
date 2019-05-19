@@ -92,7 +92,7 @@ public abstract class Category {
     // add sub categories images
     for (Category category : categories) {
       if (!excludedList.contains(category)) {
-        images.addAll(category.getImages());
+      	images.addAll(category.getImages(excludedList));
       }
     }
 
