@@ -61,7 +61,6 @@ public class MainUi {
 		allImages = Logic.getImages();
 
     for (URL url : allImages) {
-//    	System.out.println(url.getFile());
     	try {
 				frame.add(createLabelImage(url));
 			} catch (IOException e) {
@@ -104,25 +103,10 @@ public class MainUi {
 		label.addMouseListener(new MouseListener() { //Ajouter le listener d'évenement de souris
 			private boolean isSelected = false;
 			
-			
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-		
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent arg0) {
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				
-			}
+			@Override public void mouseReleased(MouseEvent arg0) {}
+			@Override public void mousePressed(MouseEvent arg0) {}
+			@Override public void mouseExited(MouseEvent arg0) {}
+			@Override public void mouseEntered(MouseEvent arg0) {}
 			
 			@Override
 			public void mouseClicked(MouseEvent arg0) { //ce qui nous intéresse c'est lorsqu'on clique sur une image, il y a donc des choses à faire ici
@@ -143,10 +127,8 @@ public class MainUi {
 						
 					}
 				});
-				
 			}
 		});
-		
 		return label;
 	}
 	

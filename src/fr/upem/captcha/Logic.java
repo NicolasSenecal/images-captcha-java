@@ -48,7 +48,6 @@ public class Logic {
     images.addAll(trueImages);
     images.addAll(falseImages);
     Collections.shuffle(images); // random order
-    // System.out.println("images to display = " + images + "\n");
 	}
 
   /**
