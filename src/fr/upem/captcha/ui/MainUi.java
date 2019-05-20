@@ -1,7 +1,6 @@
 package fr.upem.captcha.ui;
 
 import fr.upem.captcha.Logic;
-//import fr.upem.captcha.images.Category;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -23,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 public class MainUi {
@@ -35,10 +35,19 @@ public class MainUi {
 		init();
 	}
 	
+  /**
+   * initiate the application
+   */
 	private static void init() throws IOException {
-		// init display
+		Logic.init();
+		resetDisplay();
+	}
+
+  /**
+   * reset the application display (without reseting the logic)
+   */
+	private static void resetDisplay() {
 		if (frame != null) frame.dispose();
-		allImages.clear();
 		selectedImages.clear();
 		frame = new JFrame("Capcha"); // Création de la fenêtre principale
 		GridLayout layout = createLayout();  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
@@ -49,13 +58,16 @@ public class MainUi {
 		frame.setResizable(false);  // On définit la fenêtre comme non redimentionnable
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenêtre on quitte le programme. 
 		
-		Logic.init();
-		
 		allImages = Logic.getImages();
 
     for (URL url : allImages) {
 //    	System.out.println(url.getFile());
-    	frame.add(createLabelImage(url));
+    	try {
+				frame.add(createLabelImage(url));
+			} catch (IOException e) {
+				System.err.println("err : tried to load an invalid image");
+				e.printStackTrace();
+			}
     }
 			
 		frame.add(new JTextArea(Logic.getMessage()));
@@ -140,18 +152,17 @@ public class MainUi {
 	
 	public static void validateSelection () {
 		if (Logic.checkImages(selectedImages)) {
-			System.out.println("c'est validey");
+			JOptionPane.showMessageDialog(null,"c'est valid� !");
 			Logic.resetDifficulty();
 		} else {
-			System.out.println("c'est pabon");
-			Logic.increaseDifficulty();
+			JOptionPane.showMessageDialog(null,"c'est rat�... le prochain sera plus difficile !");
+			try {
+				Logic.increaseDifficulty();
+			} catch (ClassNotFoundException e) {
+				JOptionPane.showMessageDialog(null,"profondeur maximale atteinte : retour � la racine de l'arbre");
+				Logic.resetDifficulty();
+			}
 		}
-		try {
-			TimeUnit.SECONDS.sleep(1);
-			init();
-		} catch (Exception e) {
-			System.err.println("error while reloading");
-			e.printStackTrace();
-		}
+		resetDisplay();
 	}
 }

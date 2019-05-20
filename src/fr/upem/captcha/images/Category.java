@@ -276,6 +276,14 @@ public abstract class Category {
       }
     }
   }
+  
+
+  /**
+   * returns true if this category has a sub category
+   */
+  public boolean hasSubCategory () {
+  	return categories.size() > 0;
+  }
 
   /**
    * Get the name description of the category

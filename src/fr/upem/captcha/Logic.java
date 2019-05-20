@@ -16,10 +16,6 @@ public class Logic {
 	private static int imagesNb = 12; // all images to display
 	private static int trueImagesNb = 4; // minimum numbers of images to find
 	
-  // difficulty
-	private static int motherDepth = 0; // depth of all images to be displayed
-	private static int trueCategoryDepth = 1; // depth of the true images
-
 	private static Category motherCategory = null;
 	private static Category trueCategory = null;
 
@@ -32,13 +28,11 @@ public class Logic {
    * set a random category of images to display (motherCategory)
    * and a sub-category of images to pick (trueCategory)
    */
-	public static void setRandomCategories () {
+	public static void setInitialCategories () {
     // Random categories
-    do {
-      motherCategory = allCategory.getRandomCategory(motherDepth);
-      trueCategory = motherCategory.getRandomCategory(trueCategoryDepth - motherDepth);
-    } while (motherCategory == trueCategory);
-	}
+	    motherCategory = allCategory.getRandomCategory(0);
+	    trueCategory = motherCategory.getRandomCategory(1);
+    }
 
   /**
    * set the array of images to display in function of the current categories
@@ -55,17 +49,6 @@ public class Logic {
     images.addAll(falseImages);
     Collections.shuffle(images); // random order
     // System.out.println("images to display = " + images + "\n");
-    
-    // Verification 
-    /*
-    for (URL image : images) {
-      if (trueCategory.hasImage(image)) {
-        System.out.println("=> OK :\n   " + image);
-      } else {
-        System.out.println("=> PAS OK :\n   " + image);
-      }
-    }
-    */
 	}
 
   /**
@@ -80,14 +63,20 @@ public class Logic {
    * initiate the categories and images
    */	
   public static void init() {
+  	resetDifficulty();
+  }
+
+  /**
+   * reset the images
+   */	
+  public static void resetImages() {
   	trueImagesNb = (int)(Math.random() * 3 + 2);
   	trueImages.clear();
   	falseImages.clear();
   	images.clear();
-  	setRandomCategories();
-  	setRandomImages();    
+  	setRandomImages();
   }
-  
+
   /**
    * get the instruction message
    */
@@ -112,18 +101,25 @@ public class Logic {
 
   /**
    * increase the difficulty of the image identification
+   *  -> go 1 category deeper
+   * @throws ClassNotFoundException when reaching maximum tree depth
    */
-  public static void increaseDifficulty() {
-  	motherDepth++;
-  	trueCategoryDepth++;
+  public static void increaseDifficulty() throws ClassNotFoundException {
+  	motherCategory = trueCategory;
+  	trueCategory = motherCategory.getRandomCategory(1);
+  	if (motherCategory == trueCategory) throw new ClassNotFoundException();
+  	resetImages();
   }
 
   /**
    * reset the difficulty of the image identification
+   *  -> go back to top category
    */
   public static void resetDifficulty() {
-  	motherDepth = 0;
-  	trueCategoryDepth = 1;
+    // Random categories
+	    motherCategory = allCategory.getRandomCategory(0);
+	    trueCategory = motherCategory.getRandomCategory(1);
+	    resetImages();
   }
 
 }
