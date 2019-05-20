@@ -28,5 +28,5 @@ xcopy .\src\* .\bin\ /S /I /C /Exclude:sources.txt
 
 ## To execute
 ```
-java -cp bin fr.upem.captcha.Main
+java -cp bin fr.upem.captcha.ui.MainUi
 ```
