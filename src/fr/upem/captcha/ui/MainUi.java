@@ -13,7 +13,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
@@ -152,14 +151,14 @@ public class MainUi {
 	
 	public static void validateSelection () {
 		if (Logic.checkImages(selectedImages)) {
-			JOptionPane.showMessageDialog(null,"c'est validé !");
+			JOptionPane.showMessageDialog(null,"c'est validÃ© !");
 			Logic.resetDifficulty();
 		} else {
-			JOptionPane.showMessageDialog(null,"c'est raté... le prochain sera plus difficile !");
+			JOptionPane.showMessageDialog(null,"c'est ratÃ©... le prochain sera plus difficile !");
 			try {
 				Logic.increaseDifficulty();
 			} catch (ClassNotFoundException e) {
-				JOptionPane.showMessageDialog(null,"profondeur maximale atteinte : retour à la racine de l'arbre");
+				JOptionPane.showMessageDialog(null,"profondeur maximale atteinte : retour Ã  la racine de l'arbre");
 				Logic.resetDifficulty();
 			}
 		}

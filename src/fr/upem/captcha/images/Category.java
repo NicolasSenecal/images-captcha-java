@@ -6,8 +6,6 @@
  */
 package fr.upem.captcha.images;
 
-import fr.upem.captcha.images.CategoryTools;
-
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -82,7 +80,6 @@ public abstract class Category {
   /**
    * Get all images of the category, ignoring a sub category instance
    *
-   * @param count number of images to get
    * @param excludedList list of categories instance to exclude
    * @return a list of random images
    */
@@ -92,7 +89,7 @@ public abstract class Category {
     // add sub categories images
     for (Category category : categories) {
       if (!excludedList.contains(category)) {
-      	images.addAll(category.getImages(excludedList));
+        images.addAll(category.getImages(excludedList));
       }
     }
 
@@ -276,13 +273,12 @@ public abstract class Category {
       }
     }
   }
-  
 
   /**
    * returns true if this category has a sub category
    */
-  public boolean hasSubCategory () {
-  	return categories.size() > 0;
+  public boolean hasSubCategory() {
+    return categories.size() > 0;
   }
 
   /**
