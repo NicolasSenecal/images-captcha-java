@@ -12,7 +12,7 @@ public class Logic {
   // MEMBERS
   private static Category allCategory = new AllCategory();
 
-  private static int imagesNb = 12; // all images to display
+  private static final int IMAGES_NB = 12; // all images to display
   private static int trueImagesNb = 4; // minimum numbers of images to find
 
   private static Category motherCategory = null;
@@ -40,7 +40,7 @@ public class Logic {
     // Images
     trueImages = trueCategory.getRandomPhotosURL(trueImagesNb);
     falseImages = motherCategory
-            .getRandomPhotosURL(imagesNb - trueImages.size(), trueCategory);
+            .getRandomPhotosURL(IMAGES_NB - trueImages.size(), trueCategory);
     // we take into account the case where trueImages.size() is lower than the one expected
     // and we excluded the trueCategory
 
