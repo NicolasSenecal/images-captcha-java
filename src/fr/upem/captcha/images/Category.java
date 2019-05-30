@@ -11,7 +11,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +20,8 @@ import java.util.stream.Collectors;
 import java.util.Collections;
 
 /**
- * Abstract class for all possible and unimaginable categories of images, 
- * as well as their subcategories
+ * Abstract class for all possible and unimaginable categories of images, as
+ * well as their subcategories
  */
 public abstract class Category implements Images {
 
@@ -153,13 +152,12 @@ public abstract class Category implements Images {
   /**
    * Get the current directory path
    *
-   * @return Return the absolute path of the current directory
+   * @return Return the relative path of the current directory
    */
   private Path getCurrentPath() {
-    String className = this.getClassFileName();
-    URL url = this.getClass().getResource(className); // URL of the actual class file
-    File file = new File(url.getPath()); // Actual class file
-    return Paths.get(file.getParent()); // Path of the parent
+    String packageName = this.getClass().getPackage().getName();
+    String currentPath = System.getProperty("java.class.path") + "/" + packageName.replace('.', '/');
+    return Paths.get(currentPath);
   }
 
   /**
