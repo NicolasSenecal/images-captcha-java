@@ -4,6 +4,7 @@ import fr.upem.captcha.images.Category;
 import fr.upem.captcha.images.AllCategory;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 
 public class Logic {
@@ -17,9 +18,9 @@ public class Logic {
   private static Category motherCategory = null;
   private static Category trueCategory = null;
 
-  private static ArrayList<URL> trueImages = new ArrayList<URL>();
-  private static ArrayList<URL> falseImages = new ArrayList<URL>();
-  private static ArrayList<URL> images = new ArrayList<URL>(); // Images to display
+  private static List<URL> trueImages = new ArrayList<URL>();
+  private static List<URL> falseImages = new ArrayList<URL>();
+  private static List<URL> images = new ArrayList<URL>(); // Images to display
 
   // SETTERS - GETTERS
   /**
@@ -37,9 +38,9 @@ public class Logic {
    */
   public static void setRandomImages() {
     // Images
-    trueImages = trueCategory.getRandomImages(trueImagesNb);
+    trueImages = trueCategory.getRandomPhotosURL(trueImagesNb);
     falseImages = motherCategory
-            .getRandomImages(imagesNb - trueImages.size(), trueCategory);
+            .getRandomPhotosURL(imagesNb - trueImages.size(), trueCategory);
     // we take into account the case where trueImages.size() is lower than the one expected
     // and we excluded the trueCategory
 
@@ -52,7 +53,7 @@ public class Logic {
   /**
    * get all the images
    */
-  public static ArrayList<URL> getImages() {
+  public static List<URL> getImages() {
     return images;
   }
 
@@ -87,7 +88,7 @@ public class Logic {
   /**
    * compare the given image list with the true category images
    */
-  public static Boolean checkImages(ArrayList<URL> selected) {
+  public static Boolean checkImages(List<URL> selected) {
     if (selected.size() != trueImages.size()) {
       return false;
     }

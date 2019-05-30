@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
@@ -26,8 +27,8 @@ import javax.swing.JTextArea;
 
 public class MainUi {
 
-  private static ArrayList<URL> allImages = new ArrayList<URL>();
-  private static ArrayList<URL> selectedImages = new ArrayList<URL>();
+  private static List<URL> allImages = new ArrayList<URL>();
+  private static List<URL> selectedImages = new ArrayList<URL>();
   private static JFrame frame;
 
   public static void main(String[] args) throws IOException {
