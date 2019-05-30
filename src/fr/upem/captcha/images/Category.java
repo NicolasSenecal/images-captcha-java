@@ -35,7 +35,7 @@ public abstract class Category {
    * Constructor, populate all subcategories and current images Catch and show
    * IOException if there are errors
    */
-  protected Category() {
+  public Category() {
     this.currentImages = new ArrayList<URL>();
     this.categories = new ArrayList<Category>();
     try {
