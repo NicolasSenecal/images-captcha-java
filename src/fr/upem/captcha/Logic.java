@@ -18,8 +18,6 @@ public class Logic {
   private static Category motherCategory = null;
   private static Category trueCategory = null;
 
-  private static List<URL> trueImages = new ArrayList<URL>();
-  private static List<URL> falseImages = new ArrayList<URL>();
   private static List<URL> images = new ArrayList<URL>(); // Images to display
 
   // SETTERS - GETTERS
@@ -38,9 +36,10 @@ public class Logic {
    */
   public static void setRandomImages() {
     // Images
-    trueImages = trueCategory.getRandomPhotosURL(trueImagesNb);
-    falseImages = motherCategory
-            .getRandomPhotosURL(IMAGES_NB - trueImages.size(), trueCategory);
+    List<URL> trueImages = trueCategory.getRandomPhotosURL(trueImagesNb);
+    trueImagesNb = trueImages.size();
+    List<URL> falseImages = motherCategory
+            .getRandomPhotosURL(IMAGES_NB - trueImagesNb, trueCategory);
     // we take into account the case where trueImages.size() is lower than the one expected
     // and we excluded the trueCategory
 
@@ -70,8 +69,6 @@ public class Logic {
    */
   public static void resetImages() {
     trueImagesNb = (int) (Math.random() * 3 + 2);
-    trueImages.clear();
-    falseImages.clear();
     images.clear();
     setRandomImages();
   }
@@ -89,11 +86,11 @@ public class Logic {
    * compare the given image list with the true category images
    */
   public static Boolean checkImages(List<URL> selected) {
-    if (selected.size() != trueImages.size()) {
+    if (selected.size() != trueImagesNb) {
       return false;
     }
     for (URL tmp : selected) {
-      if (!trueImages.contains(tmp)) {
+      if (!trueCategory.isPhotoCorrect(tmp)) {
         return false;
       }
     }
