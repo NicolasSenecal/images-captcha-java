@@ -1,5 +1,9 @@
-# Images Captcha in Java
-Images selection captcha in JAVA 
+# Images Captcha in Java - Pasta, rice and potatoes (fr)
+
+![Images Captcha YPreview](./preview.png)
+
+Images selection captcha in JAVA with difficulty management (image accuracy).
+Text in French only.
 
 ## To run with a build
 
