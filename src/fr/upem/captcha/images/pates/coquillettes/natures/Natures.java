@@ -8,6 +8,9 @@ package fr.upem.captcha.images.pates.coquillettes.natures;
 
 import fr.upem.captcha.images.pates.coquillettes.Coquillettes;
 
+/**
+ * "Coquillettes Natures" category, sub-category of Coquillettes
+ */
 public class Natures extends Coquillettes {
 
   /**

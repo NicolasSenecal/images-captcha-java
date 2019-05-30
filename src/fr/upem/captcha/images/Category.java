@@ -20,6 +20,10 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.Collections;
 
+/**
+ * Abstract class for all possible and unimaginable categories of images, 
+ * as well as their subcategories
+ */
 public abstract class Category implements Images {
 
   /**

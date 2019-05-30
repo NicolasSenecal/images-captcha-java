@@ -9,6 +9,9 @@ package fr.upem.captcha.images;
 import java.net.URL;
 import java.util.List;
 
+/**
+ * Interface for class containing URL list of images
+ */
 public interface Images {
 
   /**

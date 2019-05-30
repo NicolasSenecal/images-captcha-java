@@ -8,6 +8,9 @@ package fr.upem.captcha.images.pates.spaghetti.cru;
 
 import fr.upem.captcha.images.pates.spaghetti.Spaghetti;
 
+/**
+ * "Spaghetti Cru" category, sub-category of Spaghetti
+ */
 public class Cru extends Spaghetti {
 
   /**

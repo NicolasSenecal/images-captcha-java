@@ -8,6 +8,9 @@ package fr.upem.captcha.images.pates.tagliatelles;
 
 import fr.upem.captcha.images.pates.Pates;
 
+/**
+ * "Tagliatelles" category, sub-category of Pates
+ */
 public class Tagliatelles extends Pates {
 
   /**
