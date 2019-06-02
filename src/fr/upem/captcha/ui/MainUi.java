@@ -30,9 +30,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+
 /**
- * Class which manages the UI of the app : 
- * displaying the interface, reseting the program
+ * Class which manages the UI of the app : displaying the interface, reseting
+ * the program
  */
 public class MainUi {
 
@@ -60,7 +61,7 @@ public class MainUi {
       frame.dispose();
     }
   }
-  
+
   /**
    * reset the application display (without reseting the logic)
    */
@@ -81,110 +82,120 @@ public class MainUi {
     allImages = Logic.getImages();
 
     for (URL url : allImages) {
-    	try {
-				frame.add(createLabelImage(url));
-			} catch (IOException e) {
-				System.err.println("err : tried to load an invalid image");
-				e.printStackTrace();
-			}
+      try {
+        frame.add(createLabelImage(url));
+      } catch (IOException e) {
+        System.err.println("err : tried to load an invalid image");
+        e.printStackTrace();
+      }
     }
-			
-		frame.add(new JTextArea(Logic.getMessage()));
-		frame.add(okButton);
-		frame.setVisible(true);
-	}
-	
+
+    frame.add(new JTextArea(Logic.getMessage()));
+    frame.add(okButton);
+    frame.setVisible(true);
+  }
+
   /**
    * creates a grid layout
-   * 
+   *
    * @return a 4x3 grid layout
    */
-	private static GridLayout createLayout(){
-		return new GridLayout(4,3);
-	}
-	
+  private static GridLayout createLayout() {
+    return new GridLayout(4, 3);
+  }
+
   /**
    * creates a ok button
-   * 
+   *
    * @return a ok JButton
    */
-	private static JButton createOkButton(){
-		return new JButton(new AbstractAction("Vérifier") { //ajouter l'action du bouton
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				EventQueue.invokeLater(new Runnable() { // faire des choses dans l'interface donc appeler cela dans la queue des évènements
-					
-					@Override
-					public void run() { // c'est un runnable
-						validateSelection();
-					}
-				});
-			}
-		});
-	}
+  private static JButton createOkButton() {
+    return new JButton(new AbstractAction("V�rifier") { //ajouter l'action du bouton
 
-	/**
+      @Override
+      public void actionPerformed(ActionEvent arg0) {
+        EventQueue.invokeLater(new Runnable() { // faire des choses dans l'interface donc appeler cela dans la queue des évènements
+
+          @Override
+          public void run() { // c'est un runnable
+            validateSelection();
+          }
+        });
+      }
+    });
+  }
+
+  /**
    * creates a label image
-   * 
+   *
    * @param URL of the image
    * @return a JLabel with the given image
    */
-	private static JLabel createLabelImage(URL url) throws IOException {
-		BufferedImage img = ImageIO.read(url); //lire l'image
-		Image sImage = img.getScaledInstance(1024/3,768/4, Image.SCALE_SMOOTH); //redimentionner l'image
-		
-		final JLabel label = new JLabel(new ImageIcon(sImage)); // créer le composant pour ajouter l'image dans la fenêtre
-		
-		label.addMouseListener(new MouseListener() { //Ajouter le listener d'évenement de souris
-			private boolean isSelected = false;
-			
-			@Override public void mouseReleased(MouseEvent arg0) {}
-			@Override public void mousePressed(MouseEvent arg0) {}
-			@Override public void mouseExited(MouseEvent arg0) {}
-			@Override public void mouseEntered(MouseEvent arg0) {}
-			
-			@Override
-			public void mouseClicked(MouseEvent arg0) { //ce qui nous intéresse c'est lorsqu'on clique sur une image, il y a donc des choses à faire ici
-				EventQueue.invokeLater(new Runnable() { 
-					
-					@Override
-					public void run() {
-						if(!isSelected){
-							label.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
-							isSelected = true;
-							selectedImages.add(url);
-						}
-						else {
-							label.setBorder(BorderFactory.createEmptyBorder());
-							isSelected = false;
-							selectedImages.remove(url);
-						}
-						
-					}
-				});
-			}
-		});
-		return label;
-	}
-	
-	/**
+  private static JLabel createLabelImage(URL url) throws IOException {
+    BufferedImage img = ImageIO.read(url); //lire l'image
+    Image sImage = img.getScaledInstance(1024 / 3, 768 / 4, Image.SCALE_SMOOTH); //redimentionner l'image
+
+    final JLabel label = new JLabel(new ImageIcon(sImage)); // créer le composant pour ajouter l'image dans la fenêtre
+
+    label.addMouseListener(new MouseListener() { //Ajouter le listener d'évenement de souris
+      private boolean isSelected = false;
+
+      @Override
+      public void mouseReleased(MouseEvent arg0) {
+      }
+
+      @Override
+      public void mousePressed(MouseEvent arg0) {
+      }
+
+      @Override
+      public void mouseExited(MouseEvent arg0) {
+      }
+
+      @Override
+      public void mouseEntered(MouseEvent arg0) {
+      }
+
+      @Override
+      public void mouseClicked(MouseEvent arg0) { //ce qui nous intéresse c'est lorsqu'on clique sur une image, il y a donc des choses à faire ici
+        EventQueue.invokeLater(new Runnable() {
+
+          @Override
+          public void run() {
+            if (!isSelected) {
+              label.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+              isSelected = true;
+              selectedImages.add(url);
+            } else {
+              label.setBorder(BorderFactory.createEmptyBorder());
+              isSelected = false;
+              selectedImages.remove(url);
+            }
+
+          }
+        });
+      }
+    });
+    return label;
+  }
+
+  /**
    * routine launched when the validation button is pressed
    */
-	public static void validateSelection () {
-		if (Logic.checkImages(selectedImages)) {
-			JOptionPane.showMessageDialog(null,"c'est valid� !");
-			Logic.resetDifficulty();
-		} else {
-			JOptionPane.showMessageDialog(null,"c'est rat�... le prochain sera plus difficile !");
-			try {
-				Logic.increaseDifficulty();
-			} catch (ClassNotFoundException e) {
-				JOptionPane.showMessageDialog(null,"profondeur maximale atteinte : vous �tes un robot. Si ce n'est pas le cas veuillez contacter l'administrateur de votre service.");
-				killDisplay();
-				return;
-			}
-		}
-		resetDisplay();
-	}
+  public static void validateSelection() {
+    if (Logic.checkImages(selectedImages)) {
+      JOptionPane.showMessageDialog(null, "c'est valid� !");
+      Logic.resetDifficulty();
+    } else {
+      JOptionPane.showMessageDialog(null, "c'est rat�... le prochain sera plus difficile !");
+      try {
+        Logic.increaseDifficulty();
+      } catch (ClassNotFoundException e) {
+        JOptionPane.showMessageDialog(null, "profondeur maximale atteinte : vous �tes un robot. Si ce n'est pas le cas veuillez contacter l'administrateur de votre service.");
+        killDisplay();
+        return;
+      }
+    }
+    resetDisplay();
+  }
 }

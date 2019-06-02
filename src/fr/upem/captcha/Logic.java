@@ -12,9 +12,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
+
 /**
- * Class which manages the overall logic of the application
- * ie moving in the images tree hierarchy, and setting up images to display
+ * Class which manages the overall logic of the application ie moving in the
+ * images tree hierarchy, and setting up images to display
  */
 public class Logic {
 
@@ -55,7 +56,7 @@ public class Logic {
     images.addAll(trueImages);
     images.addAll(falseImages);
     Collections.shuffle(images); // random order
-	}
+  }
 
   /**
    * get all the images
@@ -85,11 +86,11 @@ public class Logic {
 
   /**
    * get the instruction message
-   * 
+   *
    * @return the instruction message to display on the UI
    */
   public static String getMessage() {
-    return ("Vous devez trouvez\n"
+    return ("Vous devez trouver\n"
             + trueCategory.getName() + " parmi\n"
             + motherCategory.getName());
   }
