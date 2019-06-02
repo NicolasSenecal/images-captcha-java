@@ -185,7 +185,8 @@ public class MainUi {
   public static void validateSelection() {
     if (Logic.checkImages(selectedImages)) {
       JOptionPane.showMessageDialog(null, "c'est validé !");
-      Logic.resetDifficulty();
+      killDisplay();
+      return;
     } else {
       JOptionPane.showMessageDialog(null, "c'est raté... le prochain sera plus difficile !");
       try {
