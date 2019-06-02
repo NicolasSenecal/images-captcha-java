@@ -8,6 +8,11 @@ package fr.upem.captcha.images;
 
 import fr.upem.captcha.images.Category;
 
+
+/**
+ * Class governing all categories of the package (the parent category)
+ * Beginning of the category tree
+ */
 public class AllCategory extends Category {
 
   /**

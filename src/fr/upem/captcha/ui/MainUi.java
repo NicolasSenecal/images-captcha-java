@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
@@ -27,38 +27,40 @@ import javax.swing.JTextArea;
 
 public class MainUi {
 
-	private static ArrayList<URL> allImages = new ArrayList<URL>();
-	private static ArrayList<URL> selectedImages = new ArrayList<URL>();
-	private static JFrame frame; 
-	
-	public static void main(String[] args) throws IOException {
-		init();
-	}
-	
+  private static List<URL> allImages = new ArrayList<URL>();
+  private static List<URL> selectedImages = new ArrayList<URL>();
+  private static JFrame frame;
+
+  public static void main(String[] args) throws IOException {
+    init();
+  }
+
   /**
    * initiate the application
    */
-	private static void init() throws IOException {
-		Logic.init();
-		resetDisplay();
-	}
+  private static void init() throws IOException {
+    Logic.init();
+    resetDisplay();
+  }
 
   /**
    * reset the application display (without reseting the logic)
    */
-	private static void resetDisplay() {
-		if (frame != null) frame.dispose();
-		selectedImages.clear();
-		frame = new JFrame("Capcha"); // Création de la fenêtre principale
-		GridLayout layout = createLayout();  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
-		JButton okButton = createOkButton();
-		
-		frame.setLayout(layout);  // affection du layout dans la fenêtre.
-		frame.setSize(1024, 768); // définition de la taille
-		frame.setResizable(false);  // On définit la fenêtre comme non redimentionnable
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenêtre on quitte le programme. 
-		
-		allImages = Logic.getImages();
+  private static void resetDisplay() {
+    if (frame != null) {
+      frame.dispose();
+    }
+    selectedImages.clear();
+    frame = new JFrame("Capcha"); // Cr�ation de la fen�tre principale
+    GridLayout layout = createLayout();  // Cr�ation d'un layout de type Grille avec 4 lignes et 3 colonnes
+    JButton okButton = createOkButton();
+
+    frame.setLayout(layout);  // affection du layout dans la fen�tre.
+    frame.setSize(1024, 768); // d�finition de la taille
+    frame.setResizable(false);  // On d�finit la fen�tre comme non redimentionnable
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fen�tre on quitte le programme. 
+
+    allImages = Logic.getImages();
 
     for (URL url : allImages) {
     	try {
@@ -134,14 +136,14 @@ public class MainUi {
 	
 	public static void validateSelection () {
 		if (Logic.checkImages(selectedImages)) {
-			JOptionPane.showMessageDialog(null,"c'est valid� !");
+			JOptionPane.showMessageDialog(null,"c'est valid� !");
 			Logic.resetDifficulty();
 		} else {
-			JOptionPane.showMessageDialog(null,"c'est rat�... le prochain sera plus difficile !");
+			JOptionPane.showMessageDialog(null,"c'est rat�... le prochain sera plus difficile !");
 			try {
 				Logic.increaseDifficulty();
 			} catch (ClassNotFoundException e) {
-				JOptionPane.showMessageDialog(null,"profondeur maximale atteinte : retour � la racine de l'arbre");
+				JOptionPane.showMessageDialog(null,"profondeur maximale atteinte : retour � la racine de l'arbre");
 				Logic.resetDifficulty();
 			}
 		}

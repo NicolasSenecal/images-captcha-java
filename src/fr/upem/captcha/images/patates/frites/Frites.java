@@ -8,6 +8,9 @@ package fr.upem.captcha.images.patates.frites;
 
 import fr.upem.captcha.images.patates.Patates;
 
+/**
+ * "Frites" category, sub-category of Patates
+ */
 public class Frites extends Patates {
 
   /**

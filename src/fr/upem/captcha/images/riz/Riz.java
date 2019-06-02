@@ -8,6 +8,9 @@ package fr.upem.captcha.images.riz;
 
 import fr.upem.captcha.images.AllCategory;
 
+/**
+ * "Riz" category, sub-category of AllCategory
+ */
 public class Riz extends AllCategory {
 
   /**

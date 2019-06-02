@@ -10,8 +10,7 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
-*.jar
+# Package Files
 *.war
 *.nar
 *.ear
@@ -30,3 +29,8 @@ hs_err_pid*
 /classes/*
 sources.txt
 /bin/
+
+# IDE 
+.classpath
+.project
+.settings

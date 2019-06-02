@@ -6,14 +6,11 @@
  */
 package fr.upem.captcha.images;
 
-import fr.upem.captcha.images.CategoryTools;
-
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +19,11 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.Collections;
 
-public abstract class Category {
+/**
+ * Abstract class for all possible and unimaginable categories of images, as
+ * well as their subcategories
+ */
+public abstract class Category implements Images {
 
   /**
    * URL list of all images present directly in the current folder
@@ -37,7 +38,7 @@ public abstract class Category {
    * Constructor, populate all subcategories and current images Catch and show
    * IOException if there are errors
    */
-  protected Category() {
+  public Category() {
     this.currentImages = new ArrayList<URL>();
     this.categories = new ArrayList<Category>();
     try {
@@ -63,8 +64,9 @@ public abstract class Category {
    *
    * @return the URL list of all images of the category, child included
    */
-  public ArrayList<URL> getImages() {
-    return this.getImages(new ArrayList<Category>());
+  @Override
+  public ArrayList<URL> getPhotos() {
+    return this.getPhotos(new ArrayList<Category>());
   }
 
   /**
@@ -73,26 +75,25 @@ public abstract class Category {
    * @param excluded category instance to exclude
    * @return the URL list of all images of the category, child included
    */
-  public ArrayList<URL> getImages(Category excluded) {
+  public ArrayList<URL> getPhotos(Category excluded) {
     ArrayList<Category> excludedList = new ArrayList<Category>();
     excludedList.add(excluded);
-    return this.getImages(excludedList);
+    return this.getPhotos(excludedList);
   }
 
   /**
    * Get all images of the category, ignoring a sub category instance
    *
-   * @param count number of images to get
    * @param excludedList list of categories instance to exclude
    * @return a list of random images
    */
-  public ArrayList<URL> getImages(ArrayList<Category> excludedList) {
+  public ArrayList<URL> getPhotos(ArrayList<Category> excludedList) {
     ArrayList<URL> images = new ArrayList<URL>();
 
     // add sub categories images
     for (Category category : categories) {
       if (!excludedList.contains(category)) {
-      	images.addAll(category.getImages(excludedList));
+        images.addAll(category.getPhotos(excludedList));
       }
     }
 
@@ -108,8 +109,17 @@ public abstract class Category {
    * @param count number of images to get
    * @return a list of random images
    */
-  public ArrayList<URL> getRandomImages(int count) {
-    return this.getRandomImages(count, new ArrayList<Category>());
+  public List<URL> getRandomPhotosURL(int count) {
+    return this.getRandomPhotosURL(count, new ArrayList<Category>());
+  }
+
+  /**
+   * Get an random images, sub categories included
+   *
+   * @return URL of the random images
+   */
+  public URL getRandomPhotoURL() {
+    return this.getRandomPhotosURL(1, new ArrayList<Category>()).get(0);
   }
 
   /**
@@ -119,10 +129,10 @@ public abstract class Category {
    * @param excluded category instance to exclude
    * @return a list of random images
    */
-  public ArrayList<URL> getRandomImages(int count, Category excluded) {
+  public List<URL> getRandomPhotosURL(int count, Category excluded) {
     ArrayList<Category> excludedList = new ArrayList<Category>();
     excludedList.add(excluded);
-    return this.getRandomImages(count, excludedList);
+    return this.getRandomPhotosURL(count, excludedList);
   }
 
   /**
@@ -132,8 +142,8 @@ public abstract class Category {
    * @param excludedList list of categories instance to exclude
    * @return a list of random images
    */
-  public ArrayList<URL> getRandomImages(int count, ArrayList<Category> excludedList) {
-    ArrayList<URL> allImages = this.getImages(excludedList);
+  public List<URL> getRandomPhotosURL(int count, ArrayList<Category> excludedList) {
+    ArrayList<URL> allImages = this.getPhotos(excludedList);
     Collections.shuffle(allImages); // change the order of images randomly
     int min = Math.min(count, allImages.size()); // if there are not enough images
     return new ArrayList<URL>(allImages.subList(0, min));
@@ -142,13 +152,12 @@ public abstract class Category {
   /**
    * Get the current directory path
    *
-   * @return Return the absolute path of the current directory
+   * @return Return the relative path of the current directory
    */
   private Path getCurrentPath() {
-    String className = this.getClassFileName();
-    URL url = this.getClass().getResource(className); // URL of the actual class file
-    File file = new File(url.getPath()); // Actual class file
-    return Paths.get(file.getParent()); // Path of the parent
+    String packageName = this.getClass().getPackage().getName();
+    String currentPath = System.getProperty("java.class.path") + "/" + packageName.replace('.', '/');
+    return Paths.get(currentPath);
   }
 
   /**
@@ -183,8 +192,8 @@ public abstract class Category {
    * @param image URL of the image to test
    * @return true if it is, false otherwise
    */
-  public boolean hasImage(URL image) {
-    return this.getImages().contains(image);
+  public boolean isPhotoCorrect(URL image) {
+    return this.getPhotos().contains(image);
   }
 
   /**
@@ -276,13 +285,12 @@ public abstract class Category {
       }
     }
   }
-  
 
   /**
    * returns true if this category has a sub category
    */
-  public boolean hasSubCategory () {
-  	return categories.size() > 0;
+  public boolean hasSubCategory() {
+    return categories.size() > 0;
   }
 
   /**
