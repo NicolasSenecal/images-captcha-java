@@ -1,3 +1,9 @@
+/**
+ * @authors : Olivier MEYER - Nicolas SENECAL
+ * @date : 2019/05/18
+ * @file : Logic.java
+ * @package : fr.upem.captcha
+ */
 package fr.upem.captcha;
 
 import fr.upem.captcha.images.Category;
@@ -6,7 +12,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
-
+/**
+ * Class which manages the overall logic of the application
+ * ie moving in the images tree hierarchy, and setting up images to display
+ */
 public class Logic {
 
   // MEMBERS
@@ -50,6 +59,8 @@ public class Logic {
 
   /**
    * get all the images
+   *
+   * @return all the stored images
    */
   public static List<URL> getImages() {
     return images;
@@ -74,6 +85,8 @@ public class Logic {
 
   /**
    * get the instruction message
+   * 
+   * @return the instruction message to display on the UI
    */
   public static String getMessage() {
     return ("Vous devez trouvez\n"

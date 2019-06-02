@@ -1,7 +1,7 @@
 /**
  * @authors : Olivier MEYER - Nicolas SENECAL
  * @date : 2019/05/18
- * @file : All.java
+ * @file : AllCategory.java
  * @package : fr.upem.captcha.images
  */
 package fr.upem.captcha.images;

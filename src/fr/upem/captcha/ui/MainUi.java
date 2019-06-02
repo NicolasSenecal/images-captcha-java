@@ -1,3 +1,9 @@
+/**
+ * @authors : Olivier MEYER - Nicolas SENECAL
+ * @date : 2019/05/18
+ * @file : MainUi.java
+ * @package : fr.upem.captcha.ui
+ */
 package fr.upem.captcha.ui;
 
 import fr.upem.captcha.Logic;
@@ -24,7 +30,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
-
+/**
+ * Class which manages the UI of the app : 
+ * displaying the interface, reseting the program
+ */
 public class MainUi {
 
   private static List<URL> allImages = new ArrayList<URL>();
@@ -43,6 +52,15 @@ public class MainUi {
     resetDisplay();
   }
 
+  /**
+   * kill the application
+   */
+  private static void killDisplay() {
+    if (frame != null) {
+      frame.dispose();
+    }
+  }
+  
   /**
    * reset the application display (without reseting the logic)
    */
@@ -76,10 +94,20 @@ public class MainUi {
 		frame.setVisible(true);
 	}
 	
+  /**
+   * creates a grid layout
+   * 
+   * @return a 4x3 grid layout
+   */
 	private static GridLayout createLayout(){
 		return new GridLayout(4,3);
 	}
 	
+  /**
+   * creates a ok button
+   * 
+   * @return a ok JButton
+   */
 	private static JButton createOkButton(){
 		return new JButton(new AbstractAction("VÃ©rifier") { //ajouter l'action du bouton
 			
@@ -95,7 +123,13 @@ public class MainUi {
 			}
 		});
 	}
-	
+
+	/**
+   * creates a label image
+   * 
+   * @param URL of the image
+   * @return a JLabel with the given image
+   */
 	private static JLabel createLabelImage(URL url) throws IOException {
 		BufferedImage img = ImageIO.read(url); //lire l'image
 		Image sImage = img.getScaledInstance(1024/3,768/4, Image.SCALE_SMOOTH); //redimentionner l'image
@@ -134,6 +168,9 @@ public class MainUi {
 		return label;
 	}
 	
+	/**
+   * routine launched when the validation button is pressed
+   */
 	public static void validateSelection () {
 		if (Logic.checkImages(selectedImages)) {
 			JOptionPane.showMessageDialog(null,"c'est validï¿½ !");
@@ -143,8 +180,9 @@ public class MainUi {
 			try {
 				Logic.increaseDifficulty();
 			} catch (ClassNotFoundException e) {
-				JOptionPane.showMessageDialog(null,"profondeur maximale atteinte : retour ï¿½ la racine de l'arbre");
-				Logic.resetDifficulty();
+				JOptionPane.showMessageDialog(null,"profondeur maximale atteinte : vous êtes un robot. Si ce n'est pas le cas veuillez contacter l'administrateur de votre service.");
+				killDisplay();
+				return;
 			}
 		}
 		resetDisplay();
