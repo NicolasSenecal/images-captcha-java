@@ -23,7 +23,7 @@ import java.util.Collections;
  * Abstract class for all possible and unimaginable categories of images, as
  * well as their subcategories
  */
-public abstract class Category {
+public abstract class Category implements Images {
 
   /**
    * URL list of all images present directly in the current folder
@@ -64,7 +64,6 @@ public abstract class Category {
    *
    * @return the URL list of all images of the category, child included
    */
-  //@Override
   public ArrayList<URL> getPhotos() {
     return this.getPhotos(new ArrayList<Category>());
   }
