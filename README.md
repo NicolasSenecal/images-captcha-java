@@ -5,14 +5,6 @@
 Images selection captcha in JAVA with difficulty management (image accuracy).
 Text in French only.
 
-## TO RUN
-
-If you want to run the software directly without compiling, you have to execute 
-the `captcha.jar` file by double clicking on it or by executing the following command:
-```
-java -jar captcha.jar
-```
-
 ## TO BUILD
 
 ### 1. Compile it
@@ -40,13 +32,23 @@ rsync -avz --exclude '*.java' ./src/ ./bin/
 xcopy .\src\* .\bin\ /S /I /C /Exclude:sources.txt
 ```
 
-### 3. Execute
+## TO RUN
 ```
 java -cp bin fr.upem.captcha.ui.MainUi
 ```
 
+OR
 
-### 4. Build the .jar file 
+If you want to run the software without doing all this stuff, you have to execute 
+the `windows_startup.bat` or `linux_startup.sh` file by double clicking on it or 
+by executing the following command:
+
+Windows:
 ```
-jar cvfe captcha.jar fr.upem.captcha.ui.MainUi -C bin/ .
+./windows_startup.bat
+```
+
+Linux:
+```
+./linux_startup.sh
 ```

@@ -22,7 +22,7 @@
 hs_err_pid*
 
 # .bat
-*.bat
+local.bat
 
 # sources
 /bin/*
